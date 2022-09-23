@@ -37,7 +37,7 @@ step_u = 5
 step_l = 1
 
 npop = 100  # population size
-ngens = 2   # nr of generations per run
+ngens = 50   # nr of generations per run
 alpha = 0.5 # blend crossover parameter
 # mutation = 0.2 # mutation probability not currently used in uncorrelated mutation
 last_best = 0 # saves best fitness
