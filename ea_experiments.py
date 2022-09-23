@@ -180,13 +180,6 @@ def append_list_as_row(file_name, list_of_elem):
 ########## Experiment simulation
 #####
 
-# create DataFrame to store results
-# df = pd.DataFrame(columns=['Exp_name', 'Enemy', 'Run', 'Gen', 'Mean_fit', 'Max_fit'], index=range(npop*n_runs))
-# index = 0
-
-# create array to store best weights per run
-# best_weights_arr = np.zeros([n_runs, n_vars*2])
-
 for run in range(n_runs):
     # Initialize population
     pop = np.random.uniform(dom_l, dom_u, (npop, n_vars))
