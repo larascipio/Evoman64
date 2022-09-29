@@ -40,27 +40,34 @@ def plot_enemy(total_df, enemy):
 
 if __name__ == "__main__":
     # load csv files 
-    # ea10 = pd.read_csv('ea10_results.csv')
-    # ea10.name = "EA-10"
-    # ea10.color = "Orange"
+    ea10 = pd.read_csv('ea10_results.csv')
+    ea10.name = "EA-10"
+    ea10.color = "Blue"
 
     ea25 = pd.read_csv('ea25_results.csv')
     ea25.name = "EA-25"
     ea25.color = "Red"
 
-    # ea50_results = pd.read_csv('ea50_results.csv')
-    # ea50.name = "EA-50"
-    # ea50.color = "Green"
+    ea50 = pd.read_csv('ea50_results.csv')
+    ea50.name = "EA-50"
+    ea50.color = "Green"
 
+    # df1 = pd.read_csv('ea10_best.csv')
+    # df2 = pd.read_csv('ea10_best2.csv')
+    # df_merged = df1.append(df2, ignore_index=True)
+    # df_merged.to_csv('ea10_best.csv', index=False)
+    # # df = pd.read_csv('ea10_results.csv')
+    # # df.drop(columns=df.columns[0], axis=1, inplace=True)
+    # # df.to_csv('ea10_results.csv', index=False)
+    
     # neat = pd.read_csv('neat_results.csv')
     # neat.name = "Neat"
     # neat.color = "Blue"
 
     # total_df = [ea10, ea25, ea50, neat]
-    total_df = [ea25]
+    total_df = [ea10, ea25, ea50]
     
-    # enemies = [3, 6, 8]
-    enemies = [3]
+    enemies = [3, 6, 8]
     
     # create line plot with mean and max for each enemy
     for e in enemies:
