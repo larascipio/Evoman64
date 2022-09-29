@@ -18,25 +18,36 @@ def add_mean_max(mean_fit_gen, max_fit_gen, name, color):
     plt.plot(mean_fit_gen, linestyle='--', color=color)
     plt.plot(max_fit_gen, linestyle='-', color=color, label=name)
 
+def select_mean_max(df, enemy):
+    if df.name == 'Neat':
+            df2 = df.loc[df['Enemy'] == enemy]
+            mean_fit_gen = df2['Mean'].reset_index(drop=True)
+            max_fit_gen = df2['Best'].reset_index(drop=True)
+    else:
+        df2 = df.loc[df['Enemy'] == enemy]
+        mean_fit_gen = df2.groupby('Gen')['Mean_fit'].mean()
+        max_fit_gen = df2.groupby('Gen')['Max_fit'].mean()
+    return (mean_fit_gen, max_fit_gen)
 
 def plot_enemy(total_df, enemy):
     """Creates a plot for each enemy, including all types of algorithms and their
        mean and max fitness values. 
     """
+    # create the plot 
     plt.plot()
     plt.title(f"Performance of all algorithms for enemy {enemy}")
     plt.xlabel("Generation")
     plt.ylabel("Fitness")
 
     for df in total_df:
-        df2 = df.loc[df['Enemy'] == enemy]
-        mean_fit_gen = df2.groupby('Gen')['Mean_fit'].mean()
-        max_fit_gen = df2.groupby('Gen')['Max_fit'].mean()
-        add_mean_max(mean_fit_gen, max_fit_gen, df.name, df.color)
+        # select the mean and max fitness for each generation
+        mean_fit, max_fit = select_mean_max(df, enemy)
+        # add mean and max values to the plot 
+        add_mean_max(mean_fit, max_fit, df.name, df.color)
+    
     plt.legend()
     plt.savefig(f'fig_enemy_{enemy}.jpg')
     plt.cla()
-
 
 if __name__ == "__main__":
     # load csv files 
@@ -51,22 +62,13 @@ if __name__ == "__main__":
     ea50 = pd.read_csv('ea50_results.csv')
     ea50.name = "EA-50"
     ea50.color = "Green"
-
-    # df1 = pd.read_csv('ea10_best.csv')
-    # df2 = pd.read_csv('ea10_best2.csv')
-    # df_merged = df1.append(df2, ignore_index=True)
-    # df_merged.to_csv('ea10_best.csv', index=False)
-    # # df = pd.read_csv('ea10_results.csv')
-    # # df.drop(columns=df.columns[0], axis=1, inplace=True)
-    # # df.to_csv('ea10_results.csv', index=False)
     
-    # neat = pd.read_csv('neat_results.csv')
-    # neat.name = "Neat"
-    # neat.color = "Blue"
+    neat = pd.read_csv('neat_results.csv')
+    neat.name = "Neat"
+    neat.color = "Yellow"
 
-    # total_df = [ea10, ea25, ea50, neat]
-    total_df = [ea10, ea25, ea50]
-    
+    total_df = [ea10, ea25, ea50, neat]
+
     enemies = [3, 6, 8]
     
     # create line plot with mean and max for each enemy
