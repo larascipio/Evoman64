@@ -1,8 +1,0 @@
-To Do:
-- Research question
-- EC algorithm 1
-- EC algoritm 2
-- Report: motivation for algorithms, description of algorithms, explain and justify choice of parameters, 
-etc. (zie grading sheet)
-
-Deadline assignment 1: 2 okt

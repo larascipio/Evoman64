@@ -26,7 +26,7 @@ if headless:
 n_hidden_neurons = 25 # neurons in MLP hidden layer
 experiment_name = 'ea25'
 n_runs = 10 # nr of complete algorithm cycles
-enemy = 6 # enemy to fight
+enemy = 3 # enemy to fight
 
 # domain of weights
 dom_u = 1
