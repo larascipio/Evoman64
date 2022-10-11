@@ -29,6 +29,10 @@ def create_plot_enemy(total_df, enemy):
     for df in total_df:
         # select the mean and max fitness for each generation
         mean_fit, max_fit = select_mean_max(df, enemy)
+        if enemy == 3:
+            print(df.name)
+            print(enemy)
+            print(max_fit)
         # add mean and max values to the plot 
         add_mean_max(mean_fit, max_fit, df.name, df.color)
     
@@ -55,9 +59,9 @@ def select_mean_max(df, enemy):
        for a specific enemy.
     """
     if df.name == 'Neat':
-            df2 = df.loc[df['Enemy'] == enemy]
-            mean_fit_gen = df2['Mean'].reset_index(drop=True)
-            max_fit_gen = df2['Best'].reset_index(drop=True)
+        df2 = df.loc[df['Enemy'] == enemy]
+        mean_fit_gen = df2['Mean'].reset_index(drop=True)
+        max_fit_gen = df2['Best'].reset_index(drop=True)
     else:
         df2 = df.loc[df['Enemy'] == enemy]
         mean_fit_gen = df2.groupby('Gen')['Mean_fit'].mean()
