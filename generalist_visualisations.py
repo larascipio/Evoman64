@@ -90,15 +90,26 @@ def create_boxplot_enemy(df, enemy):
 
 if __name__ == "__main__":
     # load csv files
-    ea_fps = pd.read_csv('ea_fps_results.csv')
-    ea_fps.type = 'FPS'
-    ea_fps.color = '#FFAC33'
+    elite_results = pd.read_csv('ea_elite_results.csv')
+    
 
-    total_df = [ea_fps]
-    enemies = ["3, 6, 8", "1, 2, 7"]
+    results = pd.concat([ea_elite, ea_elite2])
 
-    # create line- and boxplots
-    for df, e in zip(total_df, enemies):
-        create_plot(df, e)
-        # create_boxplot(ea_test_results, e)
+    results.to_csv('elite_results.csv', index=False)
+
+    # ea_fps = pd.read_csv('ea_fps_results.csv')
+    # ea_fps.type = 'elite_group_368'
+    # ea_fps.color = '#FFAC33'
+
+    # ea_fps = pd.read_csv('ea_fps_results.csv')
+    # ea_fps.type = 'elite_127'
+    # ea_fps.color = '#FFAC33'
+
+    # total_df = [ea_fps]
+    # enemies = ["3, 6, 8", "1, 2, 7"]
+
+    # # create line- and boxplots
+    # for df, e in zip(total_df, enemies):
+    #     create_plot(df, e)
+    #     # create_boxplot(ea_test_results, e)
 
