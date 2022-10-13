@@ -11,34 +11,41 @@ import pandas as pd
 from csv import reader, writer
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+from sympy import E
 
 # set global font for plots
 plt.rcParams.update({'font.family':'sans-serif'})
 
-def create_plot(df, enemies):
+def create_plot(list, enemies):
     """Creates a plot for each enemy, including all types of algorithms and their
        mean and max fitness values. 
     """
     # create the plot 
     plt.plot()
     plt.grid('on')
-    plt.title(f'Performance of {df.type} for enemies {enemies}')
+    plt.title(f'Performance of EA with FPS and Elitism for enemies {enemies}')
     plt.xlabel('Generation')
     plt.ylabel('Fitness')
 
-    # select the mean and max fitness for each generation
-    mean_fit, max_fit = select_mean_max(df)
+    for df in list:
+        # select the mean and max fitness for each generation
+        mean_fit, max_fit = select_mean_max(df)
 
-    # add mean and max values to the plot 
-    add_mean_max(mean_fit, max_fit, df.color)
+        # add mean and max values to the plot 
+        add_mean_max(mean_fit, max_fit, df.color)
     
-    custom_legend = [Line2D([0], [0], linestyle='--', color=df.color, lw=1),
-                     Line2D([0], [0], linestyle='-',color=df.color, lw=1)]
+    custom_legend = [Line2D([0], [0], linestyle='--', color='black', lw=1),
+                     Line2D([0], [0], linestyle='-',color='black', lw=1),
+                     Line2D([0], [0], color='#3380FF', lw=1),
+                     Line2D([0], [0], color='#A40C0C', lw=1)
+                     ]
 
     plt.legend(custom_legend, ['Mean',
-                               'Max'])
+                               'Max',
+                               'FPS', 
+                               'Elitism'])
 
-    plt.savefig(f'line_plot_{df.type}_{enemies}.jpg')
+    plt.savefig(f'gen_line_plot_{enemies}.jpg')
     plt.cla()
 
 
@@ -90,26 +97,23 @@ def create_boxplot_enemy(df, enemy):
 
 if __name__ == "__main__":
     # load csv files
-    elite_results = pd.read_csv('ea_elite_results.csv')
+    fps_368 = pd.read_csv('ea_fps_results_368.csv')
+    fps_368.color = '#3380FF' #blue 
+
+    fps_127 = pd.read_csv('ea_fps_results127.csv')
+    fps_127.color = '#3380FF'
     
+    elite_368 = pd.read_csv('ea_elite_results_368.csv')
+    elite_368.color = '#A40C0C' #red
 
-    results = pd.concat([ea_elite, ea_elite2])
+    elite_127 = pd.read_csv('ea_elite127_results.csv')
+    elite_127.color = '#A40C0C'
 
-    results.to_csv('elite_results.csv', index=False)
-
-    # ea_fps = pd.read_csv('ea_fps_results.csv')
-    # ea_fps.type = 'elite_group_368'
-    # ea_fps.color = '#FFAC33'
-
-    # ea_fps = pd.read_csv('ea_fps_results.csv')
-    # ea_fps.type = 'elite_127'
-    # ea_fps.color = '#FFAC33'
-
-    # total_df = [ea_fps]
-    # enemies = ["3, 6, 8", "1, 2, 7"]
-
-    # # create line- and boxplots
-    # for df, e in zip(total_df, enemies):
-    #     create_plot(df, e)
-    #     # create_boxplot(ea_test_results, e)
+    total_df = [[fps_368, elite_368], [fps_127, elite_127]]
+    enemies = ['3, 6 and 8', '1, 2 and 7']
+    
+    # create line- and boxplots 
+    for list, e in zip(total_df, enemies):
+        create_plot(list, e)
+        # create_boxplot(ea_test_results, e)
 
