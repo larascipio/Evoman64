@@ -23,7 +23,7 @@ def create_plot(list, enemies):
     # create the plot 
     plt.plot()
     plt.grid('on')
-    plt.title(f'Performance of EA with FPS and Elitism for enemies {enemies}')
+    plt.title(f'Performance of the EA with FPS or Elitism for enemies {enemies}')
     plt.xlabel('Generation')
     plt.ylabel('Fitness')
 
@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
     total_df = [[fps_368, elite_368], [fps_127, elite_127]]
     enemies = ['3, 6 and 8', '1, 2 and 7']
-    
+
     # create line- and boxplots 
     for list, e in zip(total_df, enemies):
         create_plot(list, e)
